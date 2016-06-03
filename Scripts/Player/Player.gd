@@ -23,8 +23,14 @@ func _fixed_process(delta):
 	pos += dir * delta * SPEED
 
 	var size = get_viewport_rect().size
-	pos.x = clamp(pos.x, 0, size.x)
+	var size2 = get_viewport_rect().pos
+	var size3 = get_tree().get_node("/root").get_camera().get_size()
+	#var size3 = get_viewport().get_camera().get_size()
+	
+	#pos.x = clamp(pos.x, 0, size.x)
+	pos.x = clamp(pos.x, -size3.x, size3.x)
 	pos.y = clamp(pos.y, 0, size.y)
+
 	set_pos(pos)
 
 #	var rect = get_viewport_rect()

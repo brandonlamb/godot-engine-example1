@@ -6,8 +6,7 @@
 
 [node name="Background" type="Sprite" parent="."]
 
-transform/pos = Vector2( 512, 304 )
-transform/scale = Vector2( 0.796486, 0.875 )
 texture = ExtResource( 1 )
+offset = Vector2( 320, 320 )
 
 
