@@ -1,7 +1,7 @@
 
 extends RigidBody2D
 
-export var speed = 100.0
+export var speed = 10.0
 
 func _ready():
 	set_fixed_process(true)
@@ -15,14 +15,16 @@ func _fixed_process(delta):
 	if (!(left or right or up or down)):
 		return
 
+	var pos = get_pos()
+	
 	if (up):
-		apply_impulse(get_pos(), Vector2(0, -1))
+		apply_impulse(pos, Vector2(0, -speed))
 
 	if (down):
-		apply_impulse(get_pos(), Vector2(0, 1))
+		apply_impulse(pos, Vector2(0, speed))
 
 	if (left):
-		apply_impulse(get_pos(), Vector2(-1, 0))
+		apply_impulse(pos, Vector2(-speed, 0))
 
 	if (right):
-		apply_impulse(get_pos(), Vector2(1, 0))
+		apply_impulse(pos, Vector2(speed, 0))

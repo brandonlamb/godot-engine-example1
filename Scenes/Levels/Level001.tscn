@@ -1,27 +1,73 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://Scripts/Levels/Level001.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Backgrounds/SpaceRunner.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scripts/Player/PlayerRigidBody2d.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Camera/PlayerFollow.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Player/PlayerRigidBody2d.gd" type="Script" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
 
 [node name="SceneRoot" type="Node2D"]
 
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 level_width = 2180
-level_height = 500
+level_height = 550
 
 [node name="Background" type="Sprite" parent="."]
 
 z/z = -4096
 texture = ExtResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 
-friction = 0.0
-gravity_scale = 0.0
-script/script = ExtResource( 4 )
+transform/pos = Vector2( 0, -580 )
+transform/scale = Vector2( 225, 4 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = { "_edit_group_":true, "_edit_lock_":true }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+
+visibility/self_opacity = 0.0
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="StaticBody2D1" type="StaticBody2D" parent="."]
+
+transform/pos = Vector2( 0, 650 )
+transform/scale = Vector2( 225, 4 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = { "_edit_group_":true, "_edit_lock_":true }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D1"]
+
+visibility/self_opacity = 0.0
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -41,5 +87,13 @@ drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
+script/script = ExtResource( 3 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+
+friction = 0.0
+gravity_scale = 0.0
+script/script = ExtResource( 5 )
+speed = 9.999
 
 

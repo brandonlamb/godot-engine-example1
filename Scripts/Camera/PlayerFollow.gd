@@ -7,22 +7,25 @@ var __root
 var __level_width
 var __level_height
 var __player
+var __player_previous_pos = Vector2()
 
 func _ready():
 	__root = get_tree().get_root().get_node("SceneRoot")
 	__level_width = __root.level_width
 	__level_height = __root.level_height
-	__player = root.get_node("Player")
+	__player = __root.get_node("Player")
+	__player_previous_pos = __player.get_pos()
 
 	set_fixed_process(true)
 
 func _fixed_process(delta):
 	var dir = Vector2()
 	var pos = __player.get_pos()
+	if (__player_previous_pos == pos):
+		return
+	
 	var x = 0
 	var y = 0
-
-	print("POS: ", pos)
 
 	# Prevent camera from going past edge of level
 	var diff_left = -__level_width - pos.x
