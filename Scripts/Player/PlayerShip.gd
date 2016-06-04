@@ -7,6 +7,10 @@ const ROTATIONAL_ACCELERATION = 2
 const ROTATIONAL_BRAKING = 2
 const APPRECIABLE = 0.01
 
+var __thrust_vector
+var __linear_velocity
+var __angular_velocity
+
 func _ready():
 	pass
 
@@ -27,12 +31,12 @@ func reset_engines():
 	get_node("rear_exhaust_2").set_emitting(false)
 
 func calculate_movement(state):
-	var lv = state.get_linear_velocity()
-	var av = state.get_angular_velocity()
+	__linear_velocity = state.get_linear_velocity()
+	__angular_velocity = state.get_angular_velocity()
+	__thrust_vector = Vector2(0,0)
 	var step = state.get_step()
-	var thrust_vector = Vector2(0,0)
 
-	print("lv=", lv, ", av=", av)
+	#print("lv=", __linear_velocity, ", av=", __angular_velocity)
 
 	var ship_forward = Input.is_action_pressed("ship_forward")
 	var ship_backward = Input.is_action_pressed("ship_backward")
@@ -40,37 +44,72 @@ func calculate_movement(state):
 	var ship_strafe_right = Input.is_action_pressed("ship_strafe_right")
 
 	if (ship_forward):
-		thrust_vector.x = sin(self.get_rot())
-		thrust_vector.y = cos(self.get_rot())
-		lv.y -= (FORWARD_ACCELERATION * thrust_vector.y * step)
-		lv.x -= (FORWARD_ACCELERATION * thrust_vector.x * step)
+		__thrust_vector.x = sin(self.get_rot())
+		__thrust_vector.y = cos(self.get_rot())
+		__linear_velocity.y -= (FORWARD_ACCELERATION * __thrust_vector.y * step)
+		__linear_velocity.x -= (FORWARD_ACCELERATION * __thrust_vector.x * step)
 		get_node("rear_exhaust_1").set_emitting(true)
 		get_node("rear_exhaust_2").set_emitting(true)
 
 	if (ship_backward):
-		thrust_vector.x = sin(self.get_rot())
-		thrust_vector.y = cos(self.get_rot())
-		lv.y += (BACKWARD_ACCELERATION * thrust_vector.y * step)
-		lv.x += (BACKWARD_ACCELERATION * thrust_vector.x * step)
+		__thrust_vector.x = sin(self.get_rot())
+		__thrust_vector.y = cos(self.get_rot())
+		__linear_velocity.y += (BACKWARD_ACCELERATION * __thrust_vector.y * step)
+		__linear_velocity.x += (BACKWARD_ACCELERATION * __thrust_vector.x * step)
 		get_node("front_exhaust").set_emitting(true)
 
 	if (ship_strafe_left):
-		thrust_vector.x = sin(self.get_rot() + deg2rad(90))
-		thrust_vector.y = cos(self.get_rot() + deg2rad(90))
-		lv.y -= (SIDEWARD_ACCELERATION * thrust_vector.y * step)
-		lv.x -= (SIDEWARD_ACCELERATION * thrust_vector.x * step)
+		__thrust_vector.x = sin(self.get_rot() + deg2rad(90))
+		__thrust_vector.y = cos(self.get_rot() + deg2rad(90))
+		__linear_velocity.y -= (SIDEWARD_ACCELERATION * __thrust_vector.y * step)
+		__linear_velocity.x -= (SIDEWARD_ACCELERATION * __thrust_vector.x * step)
 		get_node("front_right_exhaust").set_emitting(true)
 		get_node("back_right_exhaust").set_emitting(true)
 
 	if (ship_strafe_right):
-		thrust_vector.x = sin(self.get_rot() - deg2rad(90))
-		thrust_vector.y = cos(self.get_rot() - deg2rad(90))
-		lv.y -= (SIDEWARD_ACCELERATION * thrust_vector.y * step)
-		lv.x -= (SIDEWARD_ACCELERATION * thrust_vector.x * step)
+		__thrust_vector.x = sin(self.get_rot() - deg2rad(90))
+		__thrust_vector.y = cos(self.get_rot() - deg2rad(90))
+		__linear_velocity.y -= (SIDEWARD_ACCELERATION * __thrust_vector.y * step)
+		__linear_velocity.x -= (SIDEWARD_ACCELERATION * __thrust_vector.x * step)
 		get_node("front_left_exhaust").set_emitting(true)
 		get_node("back_left_exhaust").set_emitting(true)
 
-	state.set_linear_velocity(lv)
+	state.set_linear_velocity(__linear_velocity)
+	__apply_brakes(ship_forward, ship_backward, state, step)
+
+func __apply_brakes(ship_forward, ship_backward, state, step):
+	if (ship_forward || ship_backward):
+		print("dont brake")
+		return
+
+	print("braking: ", __linear_velocity)
+	__linear_velocity = Vector2(0, 0)
+	state.set_linear_velocity(__linear_velocity)
+
+func __apply_brakes_old(ship_forward, ship_backward, state, step):
+	if (ship_forward || ship_backward || __linear_velocity.x == 0 || __linear_velocity.y == 0):
+		print("dont brake")
+		return
+
+	print("braking: ", __linear_velocity)
+	
+	if (__linear_velocity.x > 0):
+		#__linear_velocity.x -= (BACKWARD_ACCELERATION * __thrust_vector.x * step)
+		#__linear_velocity.x -= 0.1 * BACKWARD_ACCELERATION * step
+		var x = __linear_velocity.x - 0.01 * step
+		__linear_velocity.x = clamp(x, 0.01, 1.0)
+	else:
+		#__linear_velocity.x += (BACKWARD_ACCELERATION * __thrust_vector.x * step)
+		#__linear_velocity.x += 0.1 * BACKWARD_ACCELERATION * step
+		var x = __linear_velocity.x + 0.01 * step
+		__linear_velocity.x = clamp(x, 0.01, 1.0)
+
+	if (__linear_velocity.y > 0):
+		__linear_velocity.y -= (BACKWARD_ACCELERATION * __thrust_vector.y * step)
+	else:
+		__linear_velocity.y += (BACKWARD_ACCELERATION * __thrust_vector.y * step)
+
+	state.set_linear_velocity(__linear_velocity)
 
 func calculate_rotation(state):
 	var av = state.get_angular_velocity()
