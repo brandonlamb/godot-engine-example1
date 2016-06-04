@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://Scripts/Levels/Level001.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Backgrounds/SpaceRunner.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Player/PlayerRigidBody2d.gd" type="Script" id=4]
 
 [node name="SceneRoot" type="Node2D"]
 
 script/script = ExtResource( 1 )
-__meta__ = { "__editor_plugin_screen__":"2D" }
+__meta__ = { "__editor_plugin_screen__":"Script" }
 level_width = 2180
 level_height = 500
 
@@ -18,9 +19,9 @@ texture = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 
-transform/scale = Vector2( 0.03, 0.03 )
-collision/margin = 0.08
-speed = 200.0
+friction = 0.0
+gravity_scale = 0.0
+script/script = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

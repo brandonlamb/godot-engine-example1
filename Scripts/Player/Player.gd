@@ -15,7 +15,7 @@ func _ready():
 	__camera = __root.get_node("Camera2D")
 	__level_width = __root.level_width
 	__level_height = __root.level_height
-	
+
 	set_fixed_process(true);
 
 func _fixed_process(delta):
