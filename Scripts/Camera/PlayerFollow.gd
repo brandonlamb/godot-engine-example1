@@ -38,5 +38,6 @@ func _fixed_process(delta):
 	if (diff_up < -__EDGE_BUFFER || diff_down > __EDGE_BUFFER):
 		pos.y = clamp(pos.y, -__level_height + __EDGE_BUFFER, __level_height - __EDGE_BUFFER)
 
-	print("CAM: ", pos)
+#	print("CAM: ", pos)
 	set_pos(pos)
+	__player_previous_pos = pos

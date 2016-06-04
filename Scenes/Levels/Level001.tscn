@@ -13,7 +13,7 @@ extents = Vector2( 10, 10 )
 [node name="SceneRoot" type="Node2D"]
 
 script/script = ExtResource( 1 )
-__meta__ = { "__editor_plugin_screen__":"Script" }
+__meta__ = { "__editor_plugin_screen__":"2D" }
 level_width = 2180
 level_height = 550
 
@@ -92,5 +92,6 @@ script/script = ExtResource( 3 )
 
 transform/scale = Vector2( 0.05, 0.05 )
 mode = 2
+friction = 1.0
 
 

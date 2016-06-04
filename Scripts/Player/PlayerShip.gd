@@ -4,6 +4,8 @@ const FORWARD_ACCELERATION = 100
 const SIDEWARD_ACCELERATION = 15
 const BACKWARD_ACCELERATION = 50
 const ROTATIONAL_ACCELERATION = 2
+const ROTATIONAL_BRAKING = 2
+const APPRECIABLE = 0.01
 
 func _ready():
 	pass
@@ -30,13 +32,14 @@ func calculate_movement(state):
 	var step = state.get_step()
 	var thrust_vector = Vector2(0,0)
 
+	print("lv=", lv, ", av=", av)
+
 	var ship_forward = Input.is_action_pressed("ship_forward")
 	var ship_backward = Input.is_action_pressed("ship_backward")
 	var ship_strafe_left = Input.is_action_pressed("ship_strafe_left")
 	var ship_strafe_right = Input.is_action_pressed("ship_strafe_right")
 
 	if (ship_forward):
-		print("FORWARD: ", ship_forward)
 		thrust_vector.x = sin(self.get_rot())
 		thrust_vector.y = cos(self.get_rot())
 		lv.y -= (FORWARD_ACCELERATION * thrust_vector.y * step)
@@ -87,14 +90,14 @@ func calculate_rotation(state):
 		get_node("back_right_exhaust").set_emitting(true)
 	else:
 		# If we have an appreciable
-		if (av > -0.07 and av < 0.07):
+		if (av > -APPRECIABLE and av < APPRECIABLE):
 			pass
-		elif (av > 0.07): # Turn left
-			av -= (ROTATIONAL_ACCELERATION * step)
+		elif (av > APPRECIABLE): # Turn left
+			av -= (ROTATIONAL_BRAKING * step)
 			get_node("front_right_exhaust").set_emitting(true)
 			get_node("back_left_exhaust").set_emitting(true)
 		else: # Turn right
-			av += (ROTATIONAL_ACCELERATION * step)
+			av += (ROTATIONAL_BRAKING * step)
 			get_node("front_left_exhaust").set_emitting(true)
 			get_node("back_right_exhaust").set_emitting(true)
 
@@ -129,7 +132,7 @@ func update_camera_zoom():
 	var camera = get_tree().get_root().get_node("SceneRoot/Camera2D")
 	var zoom     = camera.get_zoom()
 
-	if  (zoom_out or zoom_in):
+	if (zoom_out or zoom_in):
 		if (zoom_out):
 			zoom.x += 0.1
 			zoom.y += 0.1
