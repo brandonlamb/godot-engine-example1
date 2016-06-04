@@ -3,7 +3,7 @@ extends Node2D
 
 export var speed = 100.0
 
-const __EDGE_BUFFER = 400.0
+const __EDGE_BUFFER = 250.0
 
 var __root
 var __level_width
@@ -12,7 +12,7 @@ var __camera
 
 func _ready():
 	__root = get_tree().get_root().get_node("SceneRoot")
-	__camera = get_node("Camera2D")
+	__camera = __root.get_node("Camera2D")
 	__level_width = __root.level_width
 	__level_height = __root.level_height
 	
@@ -52,7 +52,7 @@ func _fixed_process(delta):
 	var diff_left = -__level_width - pos.x
 	var diff_right = __level_width - pos.x
 	if (diff_left < -__EDGE_BUFFER || diff_right > __EDGE_BUFFER):
-		x = clamp(pos.x, -__level_width + __EDGE_BUFFER, __level_width - __EDGE_BUFFER)
+		x = clamp(pos.x, -__level_width + (__EDGE_BUFFER * 1.9), __level_width - (__EDGE_BUFFER * 1.9))
 		cam.x = x
 
 	var diff_up = -__level_height - pos.y

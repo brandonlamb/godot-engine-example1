@@ -7,8 +7,8 @@
 [node name="SceneRoot" type="Node2D"]
 
 script/script = ExtResource( 1 )
-__meta__ = { "__editor_plugin_screen__":"Script" }
-level_width = 1720
+__meta__ = { "__editor_plugin_screen__":"2D" }
+level_width = 2180
 level_height = 500
 
 [node name="Background" type="Sprite" parent="."]
@@ -21,5 +21,24 @@ texture = ExtResource( 2 )
 transform/scale = Vector2( 0.03, 0.03 )
 collision/margin = 0.08
 speed = 200.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
 
 

@@ -18,6 +18,7 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"2D" }
 speed = 100.0
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -30,24 +31,5 @@ build_mode = 0
 polygon = Vector2Array( 0, -770, -710, 760, 710, 750 )
 shape_range = Vector2( 0, 0 )
 trigger = false
-
-[node name="Camera2D" type="Camera2D" parent="."]
-
-anchor_mode = 1
-rotating = false
-current = true
-zoom = Vector2( 1, 1 )
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
-drag_margin/h_enabled = true
-drag_margin/v_enabled = true
-smoothing/enable = false
-smoothing/speed = 5.0
-drag_margin/left = 0.2
-drag_margin/top = 0.2
-drag_margin/right = 0.2
-drag_margin/bottom = 0.2
 
 
