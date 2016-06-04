@@ -9,7 +9,7 @@
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 level_width = 1720
-level_height = 260
+level_height = 500
 
 [node name="Background" type="Sprite" parent="."]
 
