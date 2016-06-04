@@ -1,0 +1,299 @@
+[gd_scene load_steps=12 format=1]
+
+[ext_resource path="res://Scripts/Player/PlayerShip.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Ships/Ship-002.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Ships/EngineExhaust.png" type="Texture" id=3]
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 60, -20, 60, 40, 0, 70, -60, 40, -60, -20, 0, -70 )
+
+[sub_resource type="ColorRamp" id=1]
+
+offsets = FloatArray( 0, 0.1, 1 )
+colors = ColorArray( 1, 1, 1, 0, 0.603949, 0.463135, 1, 1, 1, 0.980733, 1, 0 )
+
+[sub_resource type="ColorRamp" id=2]
+
+offsets = FloatArray( 0, 0.1, 1 )
+colors = ColorArray( 1, 1, 1, 0, 0.603949, 0.463135, 1, 1, 1, 0.980733, 1, 0 )
+
+[sub_resource type="ColorRamp" id=3]
+
+offsets = FloatArray( 0, 0.1, 1 )
+colors = ColorArray( 1, 1, 1, 0, 0.603949, 0.463135, 1, 1, 1, 0.980733, 1, 0 )
+
+[sub_resource type="ColorRamp" id=4]
+
+offsets = FloatArray( 0, 0.1, 1 )
+colors = ColorArray( 1, 1, 1, 0, 0.603949, 0.463135, 1, 1, 1, 0.980733, 1, 0 )
+
+[sub_resource type="ColorRamp" id=5]
+
+offsets = FloatArray( 0, 0.1, 1 )
+colors = ColorArray( 1, 1, 1, 0, 0.603949, 0.463135, 1, 1, 1, 0.980733, 1, 0 )
+
+[sub_resource type="ColorRamp" id=6]
+
+offsets = FloatArray( 0, 0.1, 1 )
+colors = ColorArray( 1, 1, 1, 0, 0.603949, 0.463135, 1, 1, 1, 0.980733, 1, 0 )
+
+[sub_resource type="ColorRamp" id=7]
+
+offsets = FloatArray( 0, 0.1, 1 )
+colors = ColorArray( 1, 1, 1, 0, 0.603949, 0.463135, 1, 1, 1, 0.980733, 1, 0 )
+
+[node name="player_ship" type="RigidBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 8 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 30.0
+friction = 0.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = true
+continuous_cd = 0
+contacts_reported = 1
+contact_monitor = true
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"2D" }
+
+[node name="sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+
+[node name="rear_exhaust_1" type="Particles2D" parent="."]
+
+visibility/behind_parent = true
+visibility/blend_mode = 1
+transform/pos = Vector2( 16, 63 )
+transform/scale = Vector2( 0.165493, 0.546875 )
+config/amount = 128
+config/lifetime = 1.0
+config/half_extents = Vector2( 15, 15 )
+config/texture = ExtResource( 3 )
+params/direction = 0.0
+params/spread = 0.0
+params/linear_velocity = 500.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = -128.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 0.7
+params/final_size = 0.3
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 1 )
+
+[node name="rear_exhaust_2" type="Particles2D" parent="."]
+
+visibility/behind_parent = true
+visibility/blend_mode = 1
+transform/pos = Vector2( -16, 63 )
+transform/scale = Vector2( 0.165493, 0.546875 )
+config/amount = 128
+config/lifetime = 1.0
+config/half_extents = Vector2( 15, 15 )
+config/texture = ExtResource( 3 )
+params/direction = 0.0
+params/spread = 0.0
+params/linear_velocity = 500.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = -128.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 0.7
+params/final_size = 0.3
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 2 )
+
+[node name="camera" type="Camera2D" parent="."]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.0
+drag_margin/top = 0.0
+drag_margin/right = 0.0
+drag_margin/bottom = 0.0
+
+[node name="front_exhaust" type="Particles2D" parent="."]
+
+visibility/behind_parent = true
+visibility/blend_mode = 1
+transform/pos = Vector2( 0.220703, -85.696 )
+transform/scale = Vector2( 0.165493, 0.546875 )
+config/amount = 128
+config/lifetime = 1.0
+config/half_extents = Vector2( 15, 15 )
+config/texture = ExtResource( 3 )
+params/direction = 180.0
+params/spread = 0.0
+params/linear_velocity = 500.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = -128.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 0.7
+params/final_size = 0.3
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 3 )
+
+[node name="front_right_exhaust" type="Particles2D" parent="."]
+
+visibility/behind_parent = true
+visibility/blend_mode = 1
+transform/pos = Vector2( 19, -44.7642 )
+transform/scale = Vector2( 0.203026, 0.165493 )
+config/amount = 128
+config/lifetime = 1.0
+config/half_extents = Vector2( 15, 15 )
+config/texture = ExtResource( 3 )
+params/direction = 90.0
+params/spread = 0.0
+params/linear_velocity = 500.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = -128.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 0.7
+params/final_size = 0.3
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 4 )
+
+[node name="back_right_exhaust" type="Particles2D" parent="."]
+
+visibility/behind_parent = true
+visibility/blend_mode = 1
+transform/pos = Vector2( 15.9968, 39.3 )
+transform/scale = Vector2( 0.203026, 0.165493 )
+config/amount = 128
+config/lifetime = 1.0
+config/half_extents = Vector2( 15, 15 )
+config/texture = ExtResource( 3 )
+params/direction = 90.0
+params/spread = 0.0
+params/linear_velocity = 500.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = -128.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 0.7
+params/final_size = 0.3
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 5 )
+
+[node name="front_left_exhaust" type="Particles2D" parent="."]
+
+visibility/behind_parent = true
+visibility/blend_mode = 1
+transform/pos = Vector2( -19, -43.8839 )
+transform/scale = Vector2( 0.203026, 0.165493 )
+config/amount = 128
+config/lifetime = 1.0
+config/half_extents = Vector2( 15, 15 )
+config/texture = ExtResource( 3 )
+params/direction = -90.0
+params/spread = 0.0
+params/linear_velocity = 500.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = -128.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 0.7
+params/final_size = 0.3
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 6 )
+
+[node name="back_left_exhaust" type="Particles2D" parent="."]
+
+visibility/behind_parent = true
+visibility/blend_mode = 1
+transform/pos = Vector2( -27, 39.3 )
+transform/scale = Vector2( 0.203026, 0.165493 )
+config/amount = 128
+config/lifetime = 1.0
+config/half_extents = Vector2( 15, 15 )
+config/texture = ExtResource( 3 )
+params/direction = -90.0
+params/spread = 0.0
+params/linear_velocity = 500.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = -128.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 0.7
+params/final_size = 0.3
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+build_mode = 0
+polygon = Vector2Array( 0, -70, -60, -20, -60, 40, 0, 70, 60, 40, 60, -20 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+

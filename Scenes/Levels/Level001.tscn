@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://Scripts/Levels/Level001.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Backgrounds/SpaceRunner.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Camera/PlayerFollow.gd" type="Script" id=3]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Player/Player.xml" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -13,9 +12,8 @@ extents = Vector2( 10, 10 )
 
 [node name="SceneRoot" type="Node2D"]
 
-transform/scale = Vector2( 0.2, 0.2 )
 script/script = ExtResource( 1 )
-__meta__ = { "__editor_plugin_screen__":"2D" }
+__meta__ = { "__editor_plugin_screen__":"Script" }
 level_width = 2180
 level_height = 550
 
@@ -92,19 +90,7 @@ script/script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 
-visibility/visible = false
-friction = 0.0
-gravity_scale = 0.0
-script/script = null
-
-[node name="player_ship" parent="." instance=ExtResource( 5 )]
-
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-gravity_scale = 1.0
-sleeping = false
-damp_override/linear = -1.0
-damp_override/angular = -1.0
+transform/scale = Vector2( 0.05, 0.05 )
+mode = 2
 
 
